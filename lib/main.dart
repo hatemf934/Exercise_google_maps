@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_with_google_maps/widgets/custom_google_maps.dart';
 
 void main() {
   runApp(const GoogleApp());
@@ -13,32 +13,6 @@ class GoogleApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: CustomGoogleMaps(),
-    );
-  }
-}
-
-class CustomGoogleMaps extends StatefulWidget {
-  const CustomGoogleMaps({super.key});
-
-  @override
-  State<CustomGoogleMaps> createState() => _CustomGoogleMapsState();
-}
-
-class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
-  late CameraPosition initialCameraPosition;
-  @override
-  void initState() {
-    super.initState();
-    initialCameraPosition = CameraPosition(
-      target: LatLng(30.03627326873406, 31.241834653739808),
-      zoom: 12,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(initialCameraPosition: initialCameraPosition),
     );
   }
 }
