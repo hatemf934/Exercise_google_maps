@@ -11,6 +11,7 @@ class CustomGoogleMaps extends StatefulWidget {
 class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
   late CameraPosition initialCameraPosition;
   late GoogleMapController googleMapController;
+  String? mapStyle;
   @override
   void initState() {
     super.initState();
@@ -18,6 +19,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
       target: LatLng(30.03627326873406, 31.241834653739808),
       zoom: 12,
     );
+    initStyleMap();
   }
 
   @override
@@ -32,6 +34,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
       body: Stack(
         children: [
           GoogleMap(
+            style: mapStyle,
             onMapCreated: (controller) {
               googleMapController = controller;
             },
@@ -55,5 +58,14 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
         ],
       ),
     );
+  }
+
+  void initStyleMap() async {
+    var mapNightStyle = await DefaultAssetBundle.of(
+      context,
+    ).loadString("assets/map_style/night_map_style.json");
+    setState(() {
+      mapStyle = mapNightStyle;
+    });
   }
 }
