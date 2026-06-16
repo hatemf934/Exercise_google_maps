@@ -77,9 +77,14 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
     });
   }
 
-  void intiMarker() {
+  void intiMarker() async {
+    var customIconMarker = await BitmapDescriptor.asset(
+      ImageConfiguration(),
+      "assets/images/google-maps.png",
+    );
     var markers = places.map((palcesModel) {
       return Marker(
+        icon: customIconMarker,
         infoWindow: InfoWindow(title: palcesModel.name),
         position: palcesModel.latLng,
         markerId: MarkerId(palcesModel.id.toString()),
