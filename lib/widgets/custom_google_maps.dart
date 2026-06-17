@@ -16,6 +16,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
   String? mapStyle;
   Set<Marker> myMarker = {};
   Set<Polyline> polylines = {};
+  Set<Polygon> polygons = {};
   @override
   void initState() {
     super.initState();
@@ -23,6 +24,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
     initStyleMap();
     intiMarker();
     initPloyline();
+    initPolygon();
   }
 
   @override
@@ -37,6 +39,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
       body: Stack(
         children: [
           GoogleMap(
+            polygons: polygons,
             polylines: polylines,
             markers: myMarker,
             style: mapStyle,
@@ -58,6 +61,22 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
                 );
               },
               child: Text("Change Position"),
+            ),
+          ),
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: 70,
+            child: ElevatedButton(
+              onPressed: () {
+                googleMapController.animateCamera(
+                  CameraUpdate.newLatLngZoom(
+                    LatLng(30.03627326873406, 31.241834653739808),
+                    4,
+                  ),
+                );
+              },
+              child: Text("Change zoom"),
             ),
           ),
         ],
@@ -127,5 +146,27 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
     );
     polylines.add(polyline1);
     polylines.add(polyline2);
+  }
+
+  void initPolygon() {
+    Polygon polygon = Polygon(
+      fillColor: Colors.black,
+      strokeWidth: 3,
+      holes: [
+        [
+          LatLng(27.358243280573095, 26.121606453253143),
+          LatLng(27.058553146870967, 24.70630131615349),
+          LatLng(24.632657320686693, 25.64983807421993),
+        ],
+      ],
+      points: [
+        LatLng(30.309711407988374, 28.952216727452445),
+        LatLng(29.491780100375877, 22.54964586914451),
+        LatLng(23.27771563782435, 24.167137454401246),
+        LatLng(22.90574273852899, 28.480448348419227),
+      ],
+      polygonId: PolygonId("1"),
+    );
+    polygons.add(polygon);
   }
 }
