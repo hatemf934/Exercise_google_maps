@@ -17,14 +17,16 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
   Set<Marker> myMarker = {};
   Set<Polyline> polylines = {};
   Set<Polygon> polygons = {};
+  Set<Circle> circles = {};
   @override
   void initState() {
     super.initState();
     initpostion();
     initStyleMap();
-    intiMarker();
-    initPloyline();
-    initPolygon();
+    initCircle();
+    // intiMarker();
+    // initPloyline();
+    // initPolygon();
   }
 
   @override
@@ -42,6 +44,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
             polygons: polygons,
             polylines: polylines,
             markers: myMarker,
+            circles: circles,
             style: mapStyle,
             onMapCreated: (controller) {
               googleMapController = controller;
@@ -72,7 +75,7 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
                 googleMapController.animateCamera(
                   CameraUpdate.newLatLngZoom(
                     LatLng(30.03627326873406, 31.241834653739808),
-                    4,
+                    7,
                   ),
                 );
               },
@@ -168,5 +171,15 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
       polygonId: PolygonId("1"),
     );
     polygons.add(polygon);
+  }
+
+  void initCircle() {
+    Circle circle = Circle(
+      fillColor: Colors.black.withAlpha(120),
+      center: LatLng(30.150249515357057, 31.236456844456704),
+      radius: 30000,
+      circleId: CircleId("1"),
+    );
+    circles.add(circle);
   }
 }
