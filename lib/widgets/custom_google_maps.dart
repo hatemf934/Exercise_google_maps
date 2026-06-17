@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_with_google_maps/helper/get_image_from_row_data.dart';
 import 'package:flutter_with_google_maps/models/places_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -78,10 +79,17 @@ class _CustomGoogleMapsState extends State<CustomGoogleMaps> {
   }
 
   void intiMarker() async {
-    var customIconMarker = await BitmapDescriptor.asset(
-      ImageConfiguration(),
-      "assets/images/google-maps.png",
+    // change size of customIconMarker from bytes
+    var customIconMarker = BitmapDescriptor.bytes(
+      await getImageFromRowData("assets/images/google-maps.png", 100),
     );
+
+    //customIconMarker from assets
+
+    //  BitmapDescriptor.asset(
+    //   ImageConfiguration(),
+    //   "assets/images/google-maps.png",
+    // );
     var markers = places.map((palcesModel) {
       return Marker(
         icon: customIconMarker,
